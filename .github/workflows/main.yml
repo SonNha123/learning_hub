@@ -1,0 +1,25 @@
+name: learning_hub
+
+on:
+  push:
+    branches: [production]
+
+jobs:
+  deploy:
+    runs-on: macos-13
+    steps:
+    - name: Deploy using ssh
+      uses: appleboy/ssh-action@master  
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: 1433
+        script: |
+          cd /Users/admin/learning_hub
+          git fetch origin
+          git checkout production
+          git pull
+          pnpm i
+          pnpm build
+          pm2 reload learning_hub
