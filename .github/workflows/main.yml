@@ -6,20 +6,23 @@ on:
 
 jobs:
   deploy:
-    runs-on: macos-13
+    runs-on: ubuntu-latest
+
     steps:
-    - name: Deploy using ssh
-      uses: appleboy/ssh-action@master  
+    - name: Deploy via SSH
+      uses: appleboy/ssh-action@v1.0.3
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
-        password: ${{ secrets.PASSWORD }}
-        port: 1433
+        key: ${{ secrets.SSH_KEY }}
+        port: 22
         script: |
           cd /Users/admin/learning_hub
+
           git fetch origin
-          git checkout production
-          git pull
-          pnpm i
+          git reset --hard origin/production
+
+          pnpm install
           pnpm build
-          pm2 reload learning_hub
+
+          pm2 reload learning_hub || pm2 start ecosystem.config.js
