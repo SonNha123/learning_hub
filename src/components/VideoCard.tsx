@@ -59,39 +59,56 @@ export default function VideoCard({ index, title, duration, thumbnail, descripti
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className={`group relative flex flex-col bg-white backdrop-blur-md border ${currentStyles.border} rounded-xl overflow-hidden transition-all duration-300 ${currentStyles.glow} cursor-pointer shadow-[0_4px_16px_rgba(0,0,0,0.02)] w-[160px] sm:w-[180px] flex-shrink-0 snap-start`}
+            className={`group relative flex flex-col bg-white backdrop-blur-md border ${currentStyles.border} rounded-2xl overflow-hidden transition-all duration-300 ${currentStyles.glow} cursor-pointer shadow-[0_8px_30px_rgba(0,0,0,0.02)] hover:shadow-[0_15px_30px_rgba(0,0,0,0.06)] w-[280px] sm:w-[calc((100%-16px)/2)] md:w-[calc((100%-32px)/3)] lg:w-[calc((100%-48px)/4)] flex-shrink-0 snap-start`}
         >
             {/* Top: Video Thumbnail */}
-            <div className="relative aspect-[16/10] w-full bg-slate-100 border-b border-slate-100">
+            <div className="relative aspect-[16/10] w-full bg-slate-100 border-b border-slate-100 overflow-hidden">
                 <img
                     src={thumbnail}
                     alt={title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     loading="lazy"
                 />
-                <div className="absolute inset-0 bg-black/10 group-hover:bg-black/5 transition-all duration-300" />
+                <div className="absolute inset-0 bg-black/15 group-hover:bg-black/5 transition-all duration-300" />
 
                 {/* Play Icon */}
                 <div className="absolute inset-0 flex items-center justify-center">
-                    <div className={`w-8 h-8 ${currentStyles.playBg} backdrop-blur-[2px] rounded-full flex items-center justify-center border border-white/40 transform scale-90 group-hover:scale-105 transition-all duration-300 shadow-md`}>
-                        <Play fill="white" stroke="none" size={12} className="ml-[2px]" />
+                    <div className={`w-11 h-11 ${currentStyles.playBg} backdrop-blur-[3px] rounded-full flex items-center justify-center border-2 border-white/40 transform scale-95 group-hover:scale-105 transition-all duration-300 shadow-lg`}>
+                        <Play fill="white" stroke="none" size={16} className="ml-[2px]" />
                     </div>
                 </div>
 
                 {/* Duration Badge */}
-                <div className="absolute bottom-1.5 right-1.5 px-1.5 py-0.5 bg-black/70 backdrop-blur-sm rounded text-[9px] font-semibold text-white/95 leading-none">
+                <div className="absolute bottom-2.5 right-2.5 px-2 py-1 bg-black/75 backdrop-blur-sm rounded-lg text-[10px] font-semibold text-white/95 shadow-md">
                     {duration}
                 </div>
             </div>
 
             {/* Bottom: Text Content */}
-            <div className="p-3 flex-1 flex flex-col gap-1.5">
-                <h3 className="font-black text-slate-800 text-[11px] leading-tight line-clamp-3 group-hover:text-blue-600 transition-colors">
+            <div className="p-4 md:p-5 flex-1 flex flex-col gap-2">
+                <h3 className="font-extrabold text-slate-800 text-xs md:text-sm leading-snug line-clamp-2 group-hover:text-blue-600 transition-colors">
                     {title}
                 </h3>
-                <p className="text-slate-600 font-medium text-[9px] leading-normal line-clamp-2 mt-auto">
+                <p className="text-slate-500 font-medium text-[11px] md:text-xs leading-relaxed line-clamp-2">
                     {description}
                 </p>
+
+                {/* Micro-metadata indicators */}
+                <div className="mt-auto pt-3 border-t border-slate-100/80 flex items-center justify-between">
+                    <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-500">
+                        <span className={`w-1.5 h-1.5 rounded-full ${
+                            color === 'blue' ? 'bg-blue-500' :
+                            color === 'purple' ? 'bg-purple-500' :
+                            color === 'green' ? 'bg-emerald-500' :
+                            color === 'orange' ? 'bg-amber-500' :
+                            color === 'cyan' ? 'bg-cyan-500' : 'bg-fuchsia-500'
+                        }`} />
+                        Độ dài: {duration}
+                    </div>
+                    <div className="flex items-center gap-1 text-[9px] md:text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-100/50">
+                        HD
+                    </div>
+                </div>
             </div>
         </motion.div>
     );

@@ -158,13 +158,7 @@ export default function Navbar() {
           
           {/* Logo (Left) */}
           <div className="flex items-center gap-2.5 flex-shrink-0 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <div className="w-9 h-9 bg-gradient-to-br from-[#1877F2] to-[#1062de] rounded-xl flex items-center justify-center shadow-[0_2px_12px_rgba(24,119,242,0.35)]">
-              <span className="text-white font-black text-lg italic leading-none">U</span>
-            </div>
-            <div className="flex flex-col leading-none text-left">
-              <span className="font-extrabold tracking-widest text-[11px] text-slate-800">UNIVISION</span>
-              <span className="text-[7px] text-slate-500 tracking-[0.25em] font-semibold">GLOBAL</span>
-            </div>
+            <img src="/images/logoheader.png" alt="Univision Global" className="w-50 h-50" />
           </div>
 
           {/* Premium Capsule Navigation (Center - Desktop Only) */}
@@ -182,7 +176,7 @@ export default function Navbar() {
                   }`}
                 >
                   <span className={isActive ? 'text-white' : cat.iconColor}>
-                    {React.cloneElement(cat.icon as React.ReactElement, { size: 14 })}
+                    {React.cloneElement(cat.icon as React.ReactElement<any>, { size: 14 })}
                   </span>
                   <span>{cat.shortLabel}</span>
                 </button>
@@ -207,13 +201,13 @@ export default function Navbar() {
             >
               <div className="w-8.5 h-8.5 rounded-full overflow-hidden border border-slate-200 group-hover:border-[#1877F2] transition-colors duration-300 shadow-md">
                 <img 
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" 
+                  src="https://upload.wikimedia.org/wikipedia/commons/9/94/2025_Cristiano_Ronaldo_%28cropped%29.jpg" 
                   alt="Avatar"
                   className="w-full h-full object-cover"
                 />
               </div>
               <div className="hidden sm:flex flex-col text-left leading-none">
-                <span className="text-slate-700 font-extrabold text-[12px] tracking-tight group-hover:text-slate-900 transition-colors">Nguyễn Văn A</span>
+                <span className="text-slate-700 font-extrabold text-[12px] tracking-tight group-hover:text-slate-900 transition-colors">Cristiano Ronaldo</span>
                 <span className="text-slate-400 font-bold text-[9.5px] mt-1">Thành viên</span>
               </div>
               <ChevronDown size={13} className="text-slate-500 group-hover:text-slate-700 transition-colors hidden sm:block" />
@@ -253,10 +247,17 @@ export default function Navbar() {
               {/* Drawer Header */}
               <div className="flex items-center justify-between px-5 pt-5 pb-4 border-b border-slate-100">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 bg-gradient-to-br from-[#1877F2] to-[#1062de] rounded-lg flex items-center justify-center shadow-md">
-                    <span className="text-white font-black text-sm italic">U</span>
+                  <div className="w-8.5 h-8.5 rounded-full overflow-hidden border border-slate-200">
+                    <img 
+                      src="https://upload.wikimedia.org/wikipedia/commons/9/94/2025_Cristiano_Ronaldo_%28cropped%29.jpg" 
+                      alt="Avatar"
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-                  <span className="font-extrabold tracking-wider text-xs text-slate-800">UNIVISION</span>
+                  <div className="flex flex-col text-left leading-none">
+                    <span className="text-slate-700 font-extrabold text-[13px] tracking-tight">Cristiano Ronaldo</span>
+                    <span className="text-slate-400 font-bold text-[10px] mt-1">Thành viên</span>
+                  </div>
                 </div>
                 <button onClick={() => setMobileOpen(false)} className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-500 hover:text-slate-800 transition-colors cursor-pointer">
                   <X size={20} />
@@ -291,7 +292,7 @@ export default function Navbar() {
                     className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-50 transition-all duration-200 cursor-pointer group active:scale-[0.97] text-left"
                   >
                     <div className={`w-9 h-9 rounded-full border-2 ${cat.circleBg} ${cat.circleGlow} flex items-center justify-center ${cat.iconColor} flex-shrink-0 group-hover:scale-105 transition-transform`}>
-                      {React.cloneElement(cat.icon as React.ReactElement, { size: 16 })}
+                      {React.cloneElement(cat.icon as React.ReactElement<any>, { size: 16 })}
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="text-[11px] font-black text-slate-700 leading-tight group-hover:text-[#1877F2] transition-colors">
@@ -303,23 +304,6 @@ export default function Navbar() {
                     </div>
                   </button>
                 ))}
-              </div>
-
-              {/* Drawer Profile Footer */}
-              <div className="px-5 py-4 border-t border-slate-100 bg-slate-50">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full overflow-hidden border border-slate-200 flex-shrink-0">
-                    <img 
-                      src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" 
-                      alt="Avatar"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="text-left">
-                    <div className="text-xs font-extrabold text-slate-700">Nguyễn Văn A</div>
-                    <div className="text-[9.5px] text-slate-400 font-bold mt-0.5">Thành viên chính thức</div>
-                  </div>
-                </div>
               </div>
             </motion.div>
           </>

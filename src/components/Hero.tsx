@@ -31,7 +31,7 @@ export default function Hero() {
             </div>
 
             {/* Text content */}
-            <div className="flex flex-col gap-3 px-6 pt-2 pb-7 md:px-12 md:py-8 md:flex-[0_0_52%] z-10">
+            <div className="flex flex-col gap-3 px-6 pt-2 pb-7 md:px-12 md:py-8 md:flex-[0_0_42%] z-10">
               <div className="inline-flex w-fit items-center border border-blue-400/50 rounded-full px-3 py-1">
                 <span className="text-[10px] font-bold tracking-widest text-blue-700 uppercase">
                   Học tập để tạo nên thành công

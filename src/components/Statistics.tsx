@@ -54,15 +54,9 @@ export default function Statistics() {
             {/* LEFT LOGO */}
             <div className="relative w-[92px] h-[92px] flex-shrink-0">
               {/* Outer */}
-              <div className="absolute inset-0 rounded-full bg-gradient-to-b from-[#ffe07a] to-[#d7a600] p-[4px] shadow-md">
-                <div className="w-full h-full rounded-full bg-[#10245c] flex flex-col items-center justify-center">
-                  <span className="text-white text-[34px] font-black italic leading-none">
-                    U
-                  </span>
-
-                  <span className="text-[6px] tracking-[0.22em] text-yellow-300 font-bold uppercase mt-1">
-                    Univision
-                  </span>
+              <div className="absolute inset-0 rounded-full bg-gradient-to-b p-[1px]">
+                <div className="w-full h-full rounded-full bg-[#] flex flex-col items-center justify-center">
+                  <img src="/images/logofooter.png" alt="Univision Global" className="w-[100px] h-[100px]" />
                 </div>
               </div>
             </div>

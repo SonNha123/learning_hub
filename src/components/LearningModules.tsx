@@ -31,6 +31,76 @@ interface ModuleProps {
   lessons: Lesson[];
 }
 
+interface DragScrollContainerProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+function DragScrollContainer({ children, className = "" }: DragScrollContainerProps) {
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const [isDown, setIsDown] = React.useState(false);
+  const [startX, setStartX] = React.useState(0);
+  const [scrollLeft, setScrollLeft] = React.useState(0);
+  const [hasDragged, setHasDragged] = React.useState(false);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!containerRef.current) return;
+    setIsDown(true);
+    setHasDragged(false);
+    containerRef.current.style.cursor = 'grabbing';
+    containerRef.current.style.userSelect = 'none';
+    setStartX(e.pageX - containerRef.current.offsetLeft);
+    setScrollLeft(containerRef.current.scrollLeft);
+  };
+
+  const handleMouseLeave = () => {
+    setIsDown(false);
+    if (containerRef.current) {
+      containerRef.current.style.cursor = 'grab';
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsDown(false);
+    if (containerRef.current) {
+      containerRef.current.style.cursor = 'grab';
+    }
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDown || !containerRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - containerRef.current.offsetLeft;
+    const walk = (x - startX) * 1.5; // Drag sensitivity speed
+    if (Math.abs(x - startX) > 5) {
+      setHasDragged(true);
+    }
+    containerRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const handleClickCapture = (e: React.MouseEvent) => {
+    if (hasDragged) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
+  };
+
+  return (
+    <div
+      ref={containerRef}
+      onMouseDown={handleMouseDown}
+      onMouseLeave={handleMouseLeave}
+      onMouseUp={handleMouseUp}
+      onMouseMove={handleMouseMove}
+      onClickCapture={handleClickCapture}
+      className={`${className} cursor-grab select-none active:cursor-grabbing ${isDown ? '' : 'snap-x'}`}
+      style={{ scrollBehavior: isDown ? 'auto' : 'smooth' }}
+    >
+      {children}
+    </div>
+  );
+}
+
 export default function LearningModules() {
   const modules: ModuleProps[] = [
     {
@@ -49,7 +119,28 @@ export default function LearningModules() {
           duration: "18:20",
           thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=450&fit=crop",
           description: "Tìm hiểu toàn bộ thao tác cốt lõi để bắt đầu hành trình của bạn hiệu quả và tối ưu nhất."
-        }
+        },
+        {
+          id: 1,
+          title: "Hướng dẫn các bước thao tác nạp, chuyển, rút, mua hàng và các tính năng của trang thành viên",
+          duration: "18:20",
+          thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=450&fit=crop",
+          description: "Tìm hiểu toàn bộ thao tác cốt lõi để bắt đầu hành trình của bạn hiệu quả và tối ưu nhất."
+        },
+        {
+          id: 1,
+          title: "Hướng dẫn các bước thao tác nạp, chuyển, rút, mua hàng và các tính năng của trang thành viên",
+          duration: "18:20",
+          thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=450&fit=crop",
+          description: "Tìm hiểu toàn bộ thao tác cốt lõi để bắt đầu hành trình của bạn hiệu quả và tối ưu nhất."
+        },
+        {
+          id: 1,
+          title: "Hướng dẫn các bước thao tác nạp, chuyển, rút, mua hàng và các tính năng của trang thành viên",
+          duration: "18:20",
+          thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=450&fit=crop",
+          description: "Tìm hiểu toàn bộ thao tác cốt lõi để bắt đầu hành trình của bạn hiệu quả và tối ưu nhất."
+        },
       ]
     },
     {
@@ -128,112 +219,46 @@ export default function LearningModules() {
     <div id="modules-section" className="max-w-7xl mx-auto px-4 py-8 bg-transparent">
       {/* Vertical Sections List */}
       <div className="space-y-10">
-        {modules.map((module, idx) => {
-          const isSection1 = idx === 0;
-
-          return (
-            <div
-              key={idx}
-              id={module.id}
-              className="scroll-mt-36 space-y-4 text-left"
-            >
-              {/* Section Header */}
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2.5">
-                  <div className={`w-7 h-7 rounded-lg ${module.iconBg} flex items-center justify-center ${module.iconColor} flex-shrink-0`}>
-                    {module.icon}
-                  </div>
-                  <h2 className={`font-black text-sm md:text-base tracking-tight leading-none uppercase ${module.titleColor}`}>
-                    {idx + 1}. {module.title}
-                  </h2>
+        {modules.map((module, idx) => (
+          <div
+            key={idx}
+            id={module.id}
+            className="scroll-mt-36 space-y-4 text-left"
+          >
+            {/* Section Header */}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <div className={`w-7 h-7 rounded-lg ${module.iconBg} flex items-center justify-center ${module.iconColor} flex-shrink-0`}>
+                  {module.icon}
                 </div>
-                <div className="flex items-center gap-1.5 text-slate-500 group cursor-pointer flex-shrink-0">
-                  <span className="text-[11px] font-bold text-slate-500">
-                    {module.lessons.length} video
-                  </span>
-                  <ChevronRight size={14} className="text-slate-500 group-hover:translate-x-0.5 transition-transform" />
-                </div>
+                <h2 className={`font-black text-sm md:text-base tracking-tight leading-none uppercase ${module.titleColor}`}>
+                  {idx + 1}. {module.title}
+                </h2>
               </div>
-
-              {/* Custom Layout for Section 1 */}
-              {isSection1 ? (
-                <div className="w-full">
-                  {module.lessons.map((lesson) => (
-                    <motion.div
-                      key={lesson.id}
-                      initial={{ opacity: 0, y: 15 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      className="group relative grid md:grid-cols-[1fr_1.2fr] bg-white hover:bg-slate-50/50 backdrop-blur-md border border-slate-200/85 hover:border-blue-500/40 rounded-2xl overflow-hidden p-4 md:p-5 gap-5 transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.02)] hover:shadow-[0_15px_30px_rgba(24,119,242,0.06)] cursor-pointer"
-                    >
-                      {/* Left: Video Thumbnail */}
-                      <div className="relative aspect-[16/10] md:aspect-auto md:h-full w-full rounded-xl overflow-hidden bg-slate-100 border border-slate-200/60 flex-shrink-0 min-h-[180px]">
-                        <img
-                          src={lesson.thumbnail}
-                          alt={lesson.title}
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                          loading="lazy"
-                        />
-                        <div className="absolute inset-0 bg-black/25 group-hover:bg-black/10 transition-all duration-300" />
-
-                        {/* Play button */}
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="w-12 h-12 rounded-full bg-blue-500/20 group-hover:bg-blue-500/40 backdrop-blur-[3px] border-2 border-white/40 flex items-center justify-center shadow-lg transform scale-95 group-hover:scale-105 transition-all duration-300">
-                            <Play fill="white" stroke="none" size={20} className="ml-1" />
-                          </div>
-                        </div>
-
-                        {/* Duration Badge */}
-                        <div className="absolute bottom-2.5 right-2.5 px-2 py-1 bg-black/75 backdrop-blur-sm rounded-lg text-xs font-semibold text-white/95 shadow-md">
-                          {lesson.duration}
-                        </div>
-                      </div>
-
-                      {/* Right: Text Content */}
-                      <div className="flex flex-col justify-center py-1">
-                        <div className="space-y-3">
-                          <h3 className="font-black text-slate-800 text-base md:text-lg leading-snug group-hover:text-blue-600 transition-colors">
-                            {lesson.title}
-                          </h3>
-
-                          <p className="text-slate-600 font-medium text-xs leading-relaxed">
-                            {lesson.description}
-                          </p>
-                        </div>
-
-                        <div className="mt-4 flex items-center gap-3">
-                          <div className="flex items-center gap-2 text-[10px] font-bold text-slate-600 bg-slate-100/65 px-2.5 py-1.5 rounded-lg border border-slate-200/60">
-                            <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-                            Độ dài: {lesson.duration} phút
-                          </div>
-                          <div className="flex items-center gap-2 text-[10px] font-bold text-slate-600 bg-slate-100/65 px-2.5 py-1.5 rounded-lg border border-slate-200/60">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                            Chất lượng HD
-                          </div>
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              ) : (
-                /* Other Sections: Horizontal scrollable row of vertical cards */
-                <div className="flex overflow-x-auto gap-3 pb-2 scrollbar-none snap-x -mx-4 px-4">
-                  {module.lessons.map((lesson) => (
-                    <VideoCard
-                      key={lesson.id}
-                      index={lesson.id}
-                      title={lesson.title}
-                      duration={lesson.duration}
-                      thumbnail={lesson.thumbnail}
-                      description={lesson.description}
-                      color={module.color}
-                    />
-                  ))}
-                </div>
-              )}
+              <div className="flex items-center gap-1.5 text-slate-500 group cursor-pointer flex-shrink-0">
+                <span className="text-[11px] font-bold text-slate-500">
+                  {module.lessons.length} video
+                </span>
+                <ChevronRight size={14} className="text-slate-500 group-hover:translate-x-0.5 transition-transform" />
+              </div>
             </div>
-          );
-        })}
+
+            {/* Horizontal scrollable row of vertical cards with click-and-drag */}
+            <DragScrollContainer className="flex overflow-x-auto gap-4 pb-4 scrollbar-none -mx-4 px-4">
+              {module.lessons.map((lesson) => (
+                <VideoCard
+                  key={lesson.id}
+                  index={lesson.id}
+                  title={lesson.title}
+                  duration={lesson.duration}
+                  thumbnail={lesson.thumbnail}
+                  description={lesson.description}
+                  color={module.color}
+                />
+              ))}
+            </DragScrollContainer>
+          </div>
+        ))}
       </div>
     </div>
   );

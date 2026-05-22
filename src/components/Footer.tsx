@@ -13,8 +13,8 @@ export default function Footer() {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <div className="space-y-6">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-[#1877F2] rounded-lg flex items-center justify-center shadow-sm">
-                <span className="text-white font-black text-lg italic">U</span>
+              <div className="w-18 h-18 bg-[] rounded-lg flex items-center justify-center">
+                <img src="/images/logofooter.png" alt="Univision Global" className="w-16 h-16" />
               </div>
               <span className="font-extrabold tracking-wider text-sm text-slate-800">UNIVISION GLOBAL</span>
             </div>
@@ -69,7 +69,7 @@ export default function Footer() {
         </div>
 
         <div className="pt-8 border-t border-slate-200/80 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-slate-500 uppercase tracking-[0.2em] font-bold">
-          <p>© 2024 Univision Global. All rights reserved.</p>
+          <p>© 2026 Univision Global. All rights reserved.</p>
           <div className="flex gap-8">
             <a href="#" className="hover:text-blue-600 transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-blue-600 transition-colors">Terms of Service</a>
