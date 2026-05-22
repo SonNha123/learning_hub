@@ -1,7 +1,7 @@
 import React from 'react';
-import { 
-  Home, 
-  BookOpen, 
+import {
+  Home,
+  BookOpen,
   Archive,
   Trophy,
   User
@@ -9,22 +9,26 @@ import {
 
 export default function MobileBottomNav() {
   return (
-    <div className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[90vw] max-w-[400px]">
-      <div className="bg-slate-950/80 backdrop-blur-md border border-slate-800/80 shadow-[0_10px_30px_rgba(0,0,0,0.3)] rounded-2xl flex items-center justify-around h-16 p-2">
-        <NavButton icon={<Home size={22} />} active />
-        <NavButton icon={<BookOpen size={22} />} />
-        <NavButton icon={<Archive size={22} />} />
-        <NavButton icon={<Trophy size={22} />} />
-        <NavButton icon={<User size={22} />} />
+    <div className="md:hidden fixed bottom-0 left-0 right-0 z-40">
+      <div className="bg-white/90 backdrop-blur-2xl border-t border-slate-200/50 shadow-[0_-4px_20px_rgba(0,0,0,0.03)] flex items-center justify-around h-14 px-2 safe-area-pb">
+        <NavButton icon={<Home size={20} />} label="Trang chủ" active />
+        <NavButton icon={<BookOpen size={20} />} label="Học tập" />
+        <NavButton icon={<Archive size={20} />} label="Tài liệu" />
+        <NavButton icon={<Trophy size={20} />} label="Thành tích" />
+        <NavButton icon={<User size={20} />} label="Tài khoản" />
       </div>
     </div>
   );
 }
 
-function NavButton({ icon, active = false }: { icon: React.ReactNode, active?: boolean }) {
+function NavButton({ icon, label, active = false }: { icon: React.ReactNode; label: string; active?: boolean }) {
   return (
-    <button className={`p-3 rounded-xl transition-all duration-300 ${active ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20 shadow-[0_4px_12px_rgba(59,130,246,0.15)]' : 'text-slate-500 hover:text-slate-300'}`}>
+    <button className={`flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl transition-all duration-200 cursor-pointer ${active
+        ? 'text-[#1877F2]'
+        : 'text-slate-500 hover:text-slate-800'
+      }`}>
       {icon}
+      <span className="text-[9px] font-bold">{label}</span>
     </button>
   );
 }

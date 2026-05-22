@@ -1,219 +1,239 @@
 import React from 'react';
 import {
-  Rocket,
-  Zap,
+  Box,
+  Brain,
   TrendingUp,
-  Users,
-  Gem,
-  BrainCircuit
+  Target,
+  Heart,
+  ChevronRight,
+  Play
 } from 'lucide-react';
+import { motion } from 'motion/react';
 import VideoCard from './VideoCard';
 
+interface Lesson {
+  id: number;
+  title: string;
+  duration: string;
+  thumbnail: string;
+  description: string;
+}
+
 interface ModuleProps {
+  id: string;
   title: string;
   subtitle: string;
   icon: React.ReactNode;
+  titleColor: string;
   iconBg: string;
+  iconColor: string;
   color: 'purple' | 'blue' | 'green' | 'orange' | 'cyan' | 'violet';
-  borderColor: string;
-  borderStyle: string;
-  lessons: {
-    id: number;
-    title: string;
-    duration: string;
-    thumbnail: string;
-    description: string;
-  }[];
+  lessons: Lesson[];
 }
 
 export default function LearningModules() {
   const modules: ModuleProps[] = [
     {
-      title: "Khởi động",
-      subtitle: "Tạo nền tảng & đạt kết quả đầu tiên",
-      icon: <Rocket size={18} className="text-[#a78bfa]" />,
-      iconBg: "bg-[#8B5CF6]/10 shadow-[0_0_15px_rgba(139,92,246,0.15)]",
-      color: "purple",
-      borderColor: "border-l-[#8B5CF6]",
-      borderStyle: "border-purple-500/30 hover:border-purple-500/80 hover:shadow-[0_0_25px_rgba(139,92,246,0.25)]",
-      lessons: [
-        { id: 1, title: "Công thức 2 tháng đạt GSKD", duration: "18:45", thumbnail: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400&h=300&fit=crop", description: "Hiểu rõ cách tạo kết quả đầu tiên trong 60 ngày" },
-        { id: 2, title: "Kỹ năng thiết lập mục tiêu", duration: "14:32", thumbnail: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&h=300&fit=crop", description: "Xác định mục tiêu rõ ràng theo ngày - tuần - tháng" },
-        { id: 3, title: "Kỹ năng xử lý từ chối", duration: "16:20", thumbnail: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=300&fit=crop", description: "Biến từ chối thành cơ hội và tiến gần hơn đến thành công" },
-      ]
-    },
-    {
-      title: "Hành động",
-      subtitle: "Bắt đầu làm đúng quy trình",
-      icon: <Zap size={18} className="text-[#60a5fa]" />,
-      iconBg: "bg-[#3B82F6]/10 shadow-[0_0_15px_rgba(59,130,246,0.15)]",
+      id: "module-1",
+      title: "HƯỚNG DẪN CÁC THAO TÁC",
+      subtitle: "Hướng dẫn các thao tác cơ bản trên nền tảng",
+      titleColor: "text-blue-600",
+      icon: <Box size={18} />,
+      iconBg: "bg-blue-500/10",
+      iconColor: "text-blue-400",
       color: "blue",
-      borderColor: "border-l-[#3B82F6]",
-      borderStyle: "border-blue-500/30 hover:border-blue-500/80 hover:shadow-[0_0_25px_rgba(59,130,246,0.25)]",
       lessons: [
-        { id: 4, title: "Con đường thành công", duration: "17:15", thumbnail: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=400&h=300&fit=crop", description: "Hiểu quy trình làm việc đúng để đạt kết quả" },
-        { id: 5, title: "Tư duy khởi nghiệp", duration: "15:48", thumbnail: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=400&h=300&fit=crop", description: "Xây mindset đúng để đi đường dài" },
-        { id: 6, title: "Quản lý thời gian", duration: "16:35", thumbnail: "https://images.unsplash.com/photo-1508962914676-134849a727f0?w=400&h=300&fit=crop", description: "Tối ưu 24h mỗi ngày để có kết quả vượt trội" },
+        {
+          id: 1,
+          title: "Hướng dẫn các bước thao tác nạp, chuyển, rút, mua hàng và các tính năng của trang thành viên",
+          duration: "18:20",
+          thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=450&fit=crop",
+          description: "Tìm hiểu toàn bộ thao tác cốt lõi để bắt đầu hành trình của bạn hiệu quả và tối ưu nhất."
+        }
       ]
     },
     {
-      title: "Tăng tốc",
-      subtitle: "Tối ưu & phát triển nhanh",
-      icon: <TrendingUp size={18} className="text-[#34d399]" />,
-      iconBg: "bg-[#10B981]/10 shadow-[0_0_15px_rgba(16,185,129,0.15)]",
-      color: "green",
-      borderColor: "border-l-[#10B981]",
-      borderStyle: "border-emerald-500/30 hover:border-emerald-500/80 hover:shadow-[0_0_25px_rgba(16,185,129,0.25)]",
+      id: "module-2",
+      title: "TƯ DUY ĐỘT PHÁ THÀNH CÔNG",
+      subtitle: "Khởi tạo khát vọng và xây mindset của người chiến thắng",
+      titleColor: "text-purple-600",
+      icon: <Brain size={18} />,
+      iconBg: "bg-purple-500/10",
+      iconColor: "text-purple-400",
+      color: "purple",
       lessons: [
-        { id: 7, title: "Công thức 4 tháng QLKD", duration: "19:21", thumbnail: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop", description: "Lộ trình lên cấp quản lý hiệu quả" },
-        { id: 8, title: "Công thức 6 tháng PPKD", duration: "18:50", thumbnail: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&h=300&fit=crop", description: "Bắt đầu xây dựng hệ thống và phát triển đội nhóm" },
-        { id: 9, title: "Công thức 9 tháng TTKD", duration: "20:10", thumbnail: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400&h=300&fit=crop", description: "Mở rộng quy mô và phát triển tổ chức" },
+        { id: 1, title: "Định hướng tinh thần khởi nghiệp, quốc gia khởi nghiệp và phong cách sống người thành công", duration: "16:45", thumbnail: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=600&h=450&fit=crop", description: "Mở khóa tiềm năng tư duy vượt trội để dẫn đầu trong mọi lĩnh vực." },
+        { id: 2, title: "Con đường đi đến thành công (hướng dẫn các bước làm việc)", duration: "15:30", thumbnail: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600&h=450&fit=crop", description: "Định hình ước mơ và thiết lập bản đồ tầm nhìn dài hạn cho tương lai." },
+        { id: 3, title: "Tư duy đòn bẩy trong kinh doanh và cuộc sống", duration: "17:20", thumbnail: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=450&fit=crop", description: "Xây dựng thái độ tích cực trước khó khăn và thử thách lớn." },
+        { id: 4, title: "Tư duy ngược của người thành công", duration: "14:10", thumbnail: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=450&fit=crop", description: "Phá bỏ niềm tin giới hạn để bứt phá đạt mục tiêu vượt mong đợi." },
+        { id: 5, title: "Quyết tâm đi đến cùng mục tiêu", duration: "16:50", thumbnail: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=450&fit=crop", description: "Chiến thuật duy trì động lực bền bỉ hành động mỗi ngày." },
       ]
     },
     {
-      title: "Xây đội nhóm",
-      subtitle: "Nhân bản & mở rộng hệ thống",
-      icon: <Users size={18} className="text-[#fbbf24]" />,
-      iconBg: "bg-[#F59E0B]/10 shadow-[0_0_15px_rgba(245,158,11,0.15)]",
-      color: "orange",
-      borderColor: "border-l-[#F59E0B]",
-      borderStyle: "border-amber-500/30 hover:border-amber-500/80 hover:shadow-[0_0_25px_rgba(245,158,11,0.25)]",
-      lessons: [
-        { id: 10, title: "Quản lý đội nhóm F1-F2", duration: "17:40", thumbnail: "https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?w=400&h=300&fit=crop", description: "Xây nền tảng đội nhóm vững chắc" },
-        { id: 11, title: "Kỹ năng lãnh đạo", duration: "16:28", thumbnail: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=400&h=300&fit=crop", description: "Dẫn dắt đội nhóm phát triển và bứt phá" },
-        { id: 12, title: "Tư duy đòn bẩy", duration: "15:44", thumbnail: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&h=300&fit=crop", description: "Nhân bản hệ thống để tăng trưởng vượt bậc" },
-      ]
-    },
-    {
-      title: "Nâng cấp bền vững",
-      subtitle: "Giữ và phát triển dài hạn",
-      icon: <Gem size={18} className="text-[#22d3ee]" />,
-      iconBg: "bg-[#06B6D4]/10 shadow-[0_0_15px_rgba(6,182,212,0.15)]",
+      id: "module-3",
+      title: "CÔNG THỨC VÀ PHƯƠNG PHÁP THÀNH CÔNG",
+      subtitle: "Quy trình bài bản xây dựng hệ thống bền vững",
+      titleColor: "text-cyan-600",
+      icon: <TrendingUp size={18} />,
+      iconBg: "bg-cyan-500/10",
+      iconColor: "text-cyan-400",
       color: "cyan",
-      borderColor: "border-l-[#06B6D4]",
-      borderStyle: "border-cyan-500/30 hover:border-cyan-500/80 hover:shadow-[0_0_25px_rgba(6,182,212,0.25)]",
       lessons: [
-        { id: 13, title: "12 tháng đạt GĐKC", duration: "17:40", thumbnail: "https://images.unsplash.com/photo-1617788138017-80ad40651399?w=400&h=300&fit=crop", description: "Đặt quỹ xe - Bước đầu tự do tài chính" },
-        { id: 14, title: "18 tháng đạt GĐKD", duration: "19:05", thumbnail: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=400&h=300&fit=crop", description: "Đặt quỹ nhà - Tài sản và cuộc sống ổn định" },
-        { id: 15, title: "24 tháng tự do tài chính", duration: "20:12", thumbnail: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&h=300&fit=crop", description: "Chủ động thời gian - Tự do địa lý - Cuộc sống mơ ước" },
+        { id: 1, title: "Công thức và phương pháp 06 tháng lên đỉnh", duration: "17:05", thumbnail: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=600&h=450&fit=crop", description: "Nắm vững công thức vàng nhân bản mô hình kinh doanh tự vận hành." },
+        { id: 2, title: "Công thức và phương pháp 2 hàng đạt GSKD", duration: "17:45", thumbnail: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=600&h=450&fit=crop", description: "Quản trị tệp khách hàng tiềm năng một cách khoa học và tối ưu." },
+        { id: 3, title: "Công thức và phương pháp 4 hàng đạt GLKD", duration: "18:15", thumbnail: "https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?w=600&h=450&fit=crop", description: "Bí quyết khơi gợi nhu cầu và thiết lập cuộc hẹn thành công cao." },
+        { id: 4, title: "Công thức và phương pháp 6 hàng đạt PPKD", duration: "18:35", thumbnail: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&h=450&fit=crop", description: "Trình bày kế hoạch cuốn hút, đánh trúng tâm lý đối tác tiềm năng." },
+        { id: 5, title: "Bám sát và hỗ trợ thành viên mới", duration: "18:05", thumbnail: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&h=450&fit=crop", description: "Quy trình dẫn dắt và kích hoạt năng lực hành động cho người mới." },
+        { id: 6, title: "Nhân bản quy trình cho đội nhóm", duration: "14:50", thumbnail: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&h=450&fit=crop", description: "Chuyển giao công nghệ và xây dựng đội ngũ kế cận xuất sắc." },
+        { id: 7, title: "Công thức và phương pháp 9 tháng đạt TTKD", duration: "19:12", thumbnail: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=450&fit=crop", description: "Gia tăng tỷ lệ chuyển đổi khách hàng qua từng điểm chạm." },
       ]
     },
     {
-      title: "Tư duy cao cấp",
-      subtitle: "Khác biệt để bứt phá",
-      icon: <BrainCircuit size={18} className="text-[#c084fc]" />,
-      iconBg: "bg-[#A855F7]/10 shadow-[0_0_15px_rgba(168,85,247,0.15)]",
-      color: "violet",
-      borderColor: "border-l-[#A855F7]",
-      borderStyle: "border-fuchsia-500/30 hover:border-fuchsia-500/80 hover:shadow-[0_0_25px_rgba(168,85,247,0.25)]",
+      id: "module-4",
+      title: "KỸ NĂNG THÀNH CÔNG",
+      subtitle: "Trang bị bộ kỹ năng mềm đỉnh cao",
+      titleColor: "text-orange-600",
+      icon: <Target size={18} />,
+      iconBg: "bg-orange-500/10",
+      iconColor: "text-orange-400",
+      color: "orange",
       lessons: [
-        { id: 16, title: "Quản lý tài chính", duration: "16:45", thumbnail: "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=400&h=300&fit=crop", description: "Giữ và nhân tiền một cách thông minh" },
-        { id: 17, title: "Đạo đức & quy định", duration: "15:30", thumbnail: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400&h=300&fit=crop", description: "Làm đúng để đi lâu dài và bền vững" },
-        { id: 18, title: "Trẻ - Khỏe - Đẹp - Tài chính", duration: "17:50", thumbnail: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400&h=300&fit=crop", description: "Phát triển toàn diện để hạnh phúc bền vững" },
+        { id: 1, title: "Công thức và phương pháp 06 tháng lên đỉnh.", duration: "19:26", thumbnail: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=600&h=450&fit=crop", description: "Làm chủ sân khấu, tự tin chia sẻ và truyền cảm hứng mạnh mẽ." },
+        { id: 2, title: "Kỹ năng thiết lập mục tiêu và kế hoạch làm việc ngày, tuần, tháng.", duration: "16:40", thumbnail: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&h=450&fit=crop", description: "Phương pháp hóa giải mọi lời từ chối để chốt hợp đồng dễ dàng." },
+        { id: 3, title: "Kỹ năng quản lý và làm việc với group đội 1 và 2", duration: "15:10", thumbnail: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=600&h=450&fit=crop", description: "Định vị bản thân xuất sắc trên mạng xã hội và ngoài đời thực." },
+        { id: 4, title: "Kỹ năng quản lý và làm việc với các thành viên cấp GSKD trở lên trong nhóm", duration: "16:25", thumbnail: "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&h=450&fit=crop", description: "Thấu hiểu mong muốn đối tác qua nghệ thuật lắng nghe chủ động." },
+        { id: 5, title: "Giải quyết xung đột trong đội nhóm", duration: "14:25", thumbnail: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=600&h=450&fit=crop", description: "Xây dựng văn hóa thấu hiểu, giải quyết mâu thuẫn nội bộ êm đẹp." },
+        { id: 6, title: "Lập kế hoạch và quản trị mục tiêu", duration: "16:10", thumbnail: "https://images.unsplash.com/photo-1508962914676-134849a727f0?w=600&h=450&fit=crop", description: "Thiết lập kế hoạch chi tiết giúp hiện thực hóa mọi mục tiêu đặt ra." },
+        { id: 7, title: "Kỹ năng đào tạo và chuyển giao", duration: "18:35", thumbnail: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&h=450&fit=crop", description: "Phương pháp sư phạm thực chiến giúp chuyển hóa kiến thức nhanh." },
       ]
     },
+    {
+      id: "module-5",
+      title: "PHÁT TRIỂN BẢN THÂN",
+      subtitle: "Nâng tầm tư duy, quản trị cảm xúc & thói quen tốt",
+      titleColor: "text-violet-600",
+      icon: <Heart size={18} />,
+      iconBg: "bg-[#ec4899]/10",
+      iconColor: "text-pink-400",
+      color: "violet",
+      lessons: [
+        { id: 1, title: "Đạo nhân tâm (bảo hiếu Cha Mẹ, sống tốt với mọi người xung quanh và trách nhiệm với xã hội)", duration: "17:40", thumbnail: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&h=450&fit=crop", description: "Luôn duy trì năng lượng đỉnh cao và thái độ tự tin, tích cực." },
+        { id: 2, title: "Trí khoẻ đẹp và tài chính, thịnh vượng cùng công ty", duration: "16:30", thumbnail: "https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?w=600&h=450&fit=crop", description: "Phương pháp tiếp thu tri thức nhân loại và nâng cấp tư duy liên tục." },
+        { id: 3, title: "Đạo đức và luật lệ nghiêm nghị và chế tài của công ty đối với các trường hợp vi phạm", duration: "15:45", thumbnail: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&h=450&fit=crop", description: "Rèn luyện kỷ luật bản thân và xây dựng bộ thói quen cốt lõi." },
+      ]
+    }
   ];
 
-  const [activeStage, setActiveStage] = React.useState(0);
-
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8 bg-transparent">
-      {/* Mobile/Tablet Layout (< lg) */}
-      <div className="lg:hidden mb-6">
-        {/* Horizontal scrollable tab selector */}
-        <div className="flex flex-row overflow-x-auto gap-2.5 pb-3 scrollbar-none snap-x -mx-4 px-4">
-          {modules.map((module, idx) => {
-            const isActive = activeStage === idx;
-            const themeColors = {
-              purple: "bg-[#8B5CF6] text-white border-[#8B5CF6]",
-              blue: "bg-[#3B82F6] text-white border-[#3B82F6]",
-              green: "bg-[#10B981] text-white border-[#10B981]",
-              orange: "bg-[#F59E0B] text-white border-[#F59E0B]",
-              cyan: "bg-[#06B6D4] text-white border-[#06B6D4]",
-              violet: "bg-[#A855F7] text-white border-[#A855F7]"
-            };
-            const activeClass = themeColors[module.color] || themeColors.purple;
+    <div id="modules-section" className="max-w-7xl mx-auto px-4 py-8 bg-transparent">
+      {/* Vertical Sections List */}
+      <div className="space-y-10">
+        {modules.map((module, idx) => {
+          const isSection1 = idx === 0;
 
-            return (
-              <button
-                key={idx}
-                onClick={() => setActiveStage(idx)}
-                className={`snap-start px-4 py-2 rounded-full font-extrabold text-xs whitespace-nowrap border-2 transition-all duration-200 flex-shrink-0 ${
-                  isActive 
-                    ? `${activeClass} shadow-lg shadow-blue-500/10` 
-                    : "bg-slate-900/60 backdrop-blur-sm text-slate-400 border-slate-800/80 hover:border-slate-700 hover:text-white"
-                }`}
-              >
-                {module.title}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Active Stage Header */}
-        <div className="mt-2.5">
-          <div className={`flex flex-row items-center gap-3.5 p-4 rounded-xl bg-slate-900/60 backdrop-blur-sm border-2 ${modules[activeStage].borderColor} border-l-[6px] shadow-[0_4px_12px_rgba(0,0,0,0.2)]`}>
-            <div className={`w-10 h-10 ${modules[activeStage].iconBg} rounded-xl flex items-center justify-center flex-shrink-0`}>
-              {modules[activeStage].icon}
-            </div>
-            <div className="flex flex-col leading-snug">
-              <span className="font-extrabold text-slate-100 text-sm">{modules[activeStage].title}</span>
-              <span className="text-[10px] text-slate-400 mt-0.5">{modules[activeStage].subtitle}</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Active Stage Lessons List */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 mt-3.5">
-          {modules[activeStage].lessons.map((lesson) => (
-            <VideoCard
-              key={lesson.id}
-              index={lesson.id}
-              title={lesson.title}
-              duration={lesson.duration}
-              thumbnail={lesson.thumbnail}
-              description={lesson.description}
-              color={modules[activeStage].color}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* Desktop Grid Layout (>= lg) */}
-      <div className="hidden lg:flex flex-col gap-3.5">
-        {modules.map((module, idx) => (
-          <div
-            key={idx}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[240px_1fr_1fr_1fr] gap-3.5 items-stretch"
-          >
-            {/* Stage Sidebar Card */}
-            <div className={`flex flex-row items-center gap-3.5 p-4 rounded-xl bg-slate-900/60 backdrop-blur-sm border-2 ${module.borderColor} border-l-[6px] shadow-[0_4px_12px_rgba(0,0,0,0.2)] transition-all duration-300 ${module.borderStyle} cursor-pointer`}>
-              {/* Glowing Icon container */}
-              <div className={`w-10 h-10 ${module.iconBg} rounded-xl flex items-center justify-center flex-shrink-0`}>
-                {module.icon}
+          return (
+            <div
+              key={idx}
+              id={module.id}
+              className="scroll-mt-36 space-y-4 text-left"
+            >
+              {/* Section Header */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <div className={`w-7 h-7 rounded-lg ${module.iconBg} flex items-center justify-center ${module.iconColor} flex-shrink-0`}>
+                    {module.icon}
+                  </div>
+                  <h2 className={`font-black text-sm md:text-base tracking-tight leading-none uppercase ${module.titleColor}`}>
+                    {idx + 1}. {module.title}
+                  </h2>
+                </div>
+                <div className="flex items-center gap-1.5 text-slate-500 group cursor-pointer flex-shrink-0">
+                  <span className="text-[11px] font-bold text-slate-500">
+                    {module.lessons.length} video
+                  </span>
+                  <ChevronRight size={14} className="text-slate-500 group-hover:translate-x-0.5 transition-transform" />
+                </div>
               </div>
 
-              {/* Stage Text */}
-              <div className="flex flex-col leading-snug">
-                <span className="font-extrabold text-slate-100 text-sm md:text-[15px]">{module.title}</span>
-                <span className="text-[10px] md:text-[10.5px] text-slate-400 leading-normal mt-0.5">{module.subtitle}</span>
-              </div>
-            </div>
+              {/* Custom Layout for Section 1 */}
+              {isSection1 ? (
+                <div className="w-full">
+                  {module.lessons.map((lesson) => (
+                    <motion.div
+                      key={lesson.id}
+                      initial={{ opacity: 0, y: 15 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      className="group relative grid md:grid-cols-[1fr_1.2fr] bg-white hover:bg-slate-50/50 backdrop-blur-md border border-slate-200/85 hover:border-blue-500/40 rounded-2xl overflow-hidden p-4 md:p-5 gap-5 transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.02)] hover:shadow-[0_15px_30px_rgba(24,119,242,0.06)] cursor-pointer"
+                    >
+                      {/* Left: Video Thumbnail */}
+                      <div className="relative aspect-[16/10] md:aspect-auto md:h-full w-full rounded-xl overflow-hidden bg-slate-100 border border-slate-200/60 flex-shrink-0 min-h-[180px]">
+                        <img
+                          src={lesson.thumbnail}
+                          alt={lesson.title}
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-black/25 group-hover:bg-black/10 transition-all duration-300" />
 
-            {/* Lessons Grid (Columns 2, 3, 4) */}
-            {module.lessons.map((lesson) => ( 
-              <VideoCard
-                key={lesson.id}
-                index={lesson.id}
-                title={lesson.title}
-                duration={lesson.duration}
-                thumbnail={lesson.thumbnail}
-                description={lesson.description}
-                color={module.color}
-              />
-            ))}
-          </div>
-        ))}
+                        {/* Play button */}
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="w-12 h-12 rounded-full bg-blue-500/20 group-hover:bg-blue-500/40 backdrop-blur-[3px] border-2 border-white/40 flex items-center justify-center shadow-lg transform scale-95 group-hover:scale-105 transition-all duration-300">
+                            <Play fill="white" stroke="none" size={20} className="ml-1" />
+                          </div>
+                        </div>
+
+                        {/* Duration Badge */}
+                        <div className="absolute bottom-2.5 right-2.5 px-2 py-1 bg-black/75 backdrop-blur-sm rounded-lg text-xs font-semibold text-white/95 shadow-md">
+                          {lesson.duration}
+                        </div>
+                      </div>
+
+                      {/* Right: Text Content */}
+                      <div className="flex flex-col justify-center py-1">
+                        <div className="space-y-3">
+                          <h3 className="font-black text-slate-800 text-base md:text-lg leading-snug group-hover:text-blue-600 transition-colors">
+                            {lesson.title}
+                          </h3>
+
+                          <p className="text-slate-600 font-medium text-xs leading-relaxed">
+                            {lesson.description}
+                          </p>
+                        </div>
+
+                        <div className="mt-4 flex items-center gap-3">
+                          <div className="flex items-center gap-2 text-[10px] font-bold text-slate-600 bg-slate-100/65 px-2.5 py-1.5 rounded-lg border border-slate-200/60">
+                            <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                            Độ dài: {lesson.duration} phút
+                          </div>
+                          <div className="flex items-center gap-2 text-[10px] font-bold text-slate-600 bg-slate-100/65 px-2.5 py-1.5 rounded-lg border border-slate-200/60">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                            Chất lượng HD
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              ) : (
+                /* Other Sections: Horizontal scrollable row of vertical cards */
+                <div className="flex overflow-x-auto gap-3 pb-2 scrollbar-none snap-x -mx-4 px-4">
+                  {module.lessons.map((lesson) => (
+                    <VideoCard
+                      key={lesson.id}
+                      index={lesson.id}
+                      title={lesson.title}
+                      duration={lesson.duration}
+                      thumbnail={lesson.thumbnail}
+                      description={lesson.description}
+                      color={module.color}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

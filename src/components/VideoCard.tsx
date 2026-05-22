@@ -9,45 +9,45 @@ interface VideoCardProps {
     thumbnail: string;
     description: string;
     color: 'purple' | 'blue' | 'green' | 'orange' | 'cyan' | 'violet';
+    key?: number | string;
 }
 
 export default function VideoCard({ index, title, duration, thumbnail, description, color }: VideoCardProps) {
-      // Map color key to tailwind color classes for the badge and glowing effects
     const colorMap = {
         purple: {
             badge: 'bg-[#8B5CF6] text-white',
-            border: 'border-purple-500/30',
-            glow: 'hover:border-purple-500 hover:shadow-[0_0_20px_rgba(139,92,246,0.25)]',
+            border: 'border-purple-500/15',
+            glow: 'hover:border-purple-400 hover:shadow-[0_8px_24px_rgba(139,92,246,0.08)]',
             playBg: 'bg-purple-500/20 group-hover:bg-purple-500/40',
         },
         blue: {
             badge: 'bg-[#3B82F6] text-white',
-            border: 'border-blue-500/30',
-            glow: 'hover:border-blue-500 hover:shadow-[0_0_20px_rgba(59,130,246,0.25)]',
+            border: 'border-blue-500/15',
+            glow: 'hover:border-blue-400 hover:shadow-[0_8px_24px_rgba(59,130,246,0.08)]',
             playBg: 'bg-blue-500/20 group-hover:bg-blue-500/40',
         },
         green: {
             badge: 'bg-[#10B981] text-white',
-            border: 'border-emerald-500/30',
-            glow: 'hover:border-emerald-500 hover:shadow-[0_0_20px_rgba(16,185,129,0.25)]',
+            border: 'border-emerald-500/15',
+            glow: 'hover:border-emerald-400 hover:shadow-[0_8px_24px_rgba(16,185,129,0.08)]',
             playBg: 'bg-emerald-500/20 group-hover:bg-emerald-500/40',
         },
         orange: {
             badge: 'bg-[#F59E0B] text-white',
-            border: 'border-amber-500/30',
-            glow: 'hover:border-amber-500 hover:shadow-[0_0_20px_rgba(245,158,11,0.25)]',
+            border: 'border-amber-500/15',
+            glow: 'hover:border-amber-400 hover:shadow-[0_8px_24px_rgba(245,158,11,0.08)]',
             playBg: 'bg-amber-500/20 group-hover:bg-amber-500/40',
         },
         cyan: {
             badge: 'bg-[#06B6D4] text-white',
-            border: 'border-cyan-500/30',
-            glow: 'hover:border-cyan-500 hover:shadow-[0_0_20px_rgba(6,182,212,0.25)]',
+            border: 'border-cyan-500/15',
+            glow: 'hover:border-cyan-400 hover:shadow-[0_8px_24px_rgba(6,182,212,0.08)]',
             playBg: 'bg-cyan-500/20 group-hover:bg-cyan-500/40',
         },
         violet: {
             badge: 'bg-[#A855F7] text-white',
-            border: 'border-fuchsia-500/30',
-            glow: 'hover:border-fuchsia-500 hover:shadow-[0_0_20px_rgba(168,85,247,0.25)]',
+            border: 'border-fuchsia-500/15',
+            glow: 'hover:border-fuchsia-400 hover:shadow-[0_8px_24px_rgba(168,85,247,0.08)]',
             playBg: 'bg-fuchsia-500/20 group-hover:bg-fuchsia-500/40',
         }
     };
@@ -56,55 +56,42 @@ export default function VideoCard({ index, title, duration, thumbnail, descripti
 
     return (
         <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className={`group relative flex flex-row-reverse lg:flex-row justify-between items-stretch bg-slate-900/60 backdrop-blur-sm border-2 ${currentStyles.border} rounded-xl p-3 gap-3.5 transition-all duration-300 ${currentStyles.glow} cursor-pointer shadow-[0_4px_12px_rgba(0,0,0,0.2)]`}
+            className={`group relative flex flex-col bg-white backdrop-blur-md border ${currentStyles.border} rounded-xl overflow-hidden transition-all duration-300 ${currentStyles.glow} cursor-pointer shadow-[0_4px_16px_rgba(0,0,0,0.02)] w-[160px] sm:w-[180px] flex-shrink-0 snap-start`}
         >
-            {/* Left side: Badge & Text */}
-            <div className="flex-1 flex flex-col justify-between min-w-0">
-                <div>
-                    {/* Badge */}
-                    <div className={`w-6 h-6 ${currentStyles.badge} rounded flex items-center justify-center font-extrabold text-[11px] leading-none shadow-sm`}>
-                        {index}
-                    </div>
-
-                    {/* Title */}
-                    <h3 className="font-extrabold text-slate-100 text-xs md:text-[13px] leading-tight mt-3 line-clamp-2 group-hover:text-blue-400 transition-colors">
-                        {title}
-                    </h3>
-                </div>
-
-                {/* Description */}
-                <p className="text-slate-400 font-medium text-[10px] md:text-[10.5px] leading-normal line-clamp-2 mt-1">
-                    {description}
-                </p>
-            </div>
-
-            {/* Right side: Video Thumbnail */}
-            <div className="w-[100px] sm:w-[120px] aspect-[4/3] relative rounded-lg overflow-hidden flex-shrink-0 bg-slate-950 border border-slate-800/80">
-                {/* Thumbnail Image */}
+            {/* Top: Video Thumbnail */}
+            <div className="relative aspect-[16/10] w-full bg-slate-100 border-b border-slate-100">
                 <img
                     src={thumbnail}
                     alt={title}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
                 />
+                <div className="absolute inset-0 bg-black/10 group-hover:bg-black/5 transition-all duration-300" />
 
-                {/* Subtle Dark Overlay */}
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-all duration-300" />
-
-                {/* Play Icon in center */}
+                {/* Play Icon */}
                 <div className="absolute inset-0 flex items-center justify-center">
-                    <div className={`w-8 h-8 ${currentStyles.playBg} backdrop-blur-[2px] rounded-full flex items-center justify-center border border-white/30 transform scale-95 group-hover:scale-105 transition-all duration-300 shadow-md`}>
+                    <div className={`w-8 h-8 ${currentStyles.playBg} backdrop-blur-[2px] rounded-full flex items-center justify-center border border-white/40 transform scale-90 group-hover:scale-105 transition-all duration-300 shadow-md`}>
                         <Play fill="white" stroke="none" size={12} className="ml-[2px]" />
                     </div>
                 </div>
 
                 {/* Duration Badge */}
-                <div className="absolute bottom-1 right-1 px-1 py-0.5 bg-black/75 backdrop-blur-sm rounded text-[8px] font-medium text-white/95 leading-none">
+                <div className="absolute bottom-1.5 right-1.5 px-1.5 py-0.5 bg-black/70 backdrop-blur-sm rounded text-[9px] font-semibold text-white/95 leading-none">
                     {duration}
                 </div>
+            </div>
+
+            {/* Bottom: Text Content */}
+            <div className="p-3 flex-1 flex flex-col gap-1.5">
+                <h3 className="font-black text-slate-800 text-[11px] leading-tight line-clamp-3 group-hover:text-blue-600 transition-colors">
+                    {title}
+                </h3>
+                <p className="text-slate-600 font-medium text-[9px] leading-normal line-clamp-2 mt-auto">
+                    {description}
+                </p>
             </div>
         </motion.div>
     );
