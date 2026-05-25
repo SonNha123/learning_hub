@@ -136,18 +136,18 @@ export default function LearningModules() {
       lessons: [
         {
           id: 1,
-          title: "Hướng dẫn các bước thao tác nạp, chuyển, rút, mua hàng và các tính năng của trang thành viên",
-          duration: "", 
+          title: "Hướng dẫn chi tiết các bước cơ bản để bắt đầu sử dụng nền tảng UNIVI:",
+          duration: "",
           thumbnail: "",
-          description: "Tìm hiểu toàn bộ thao tác cốt lõi để bắt đầu hành trình của bạn hiệu quả và tối ưu nhất.",
+          description: "✔️ Đăng ký tài khoản\n✔️ Đăng nhập hệ thống\n✔️ Xác minh tài khoản\n✔️ Thiết lập mật khẩu cấp 2 bảo mật",
           videoUrl: "https://www.youtube.com/embed/uh0uL7GbPVU?si=mk7ghlUfGp-2wv5n"
         },
         {
           id: 2,
-          title: "Hướng dẫn các bước thao tác nạp, chuyển, rút, mua hàng và các tính năng của trang thành viên",
+          title: "Hướng dẫn chi tiết các thao tác quan trọng trên nền tảng UNIVI:",
           duration: "",
           thumbnail: "",
-          description: "Tìm hiểu toàn bộ thao tác cốt lõi để bắt đầu hành trình của bạn hiệu quả và tối ưu nhất.",
+          description: "✔️ Nạp tiền vào tài khoản\n✔️Rút tiền nhanh chóng\n✔️ Chuyển tiền nội bộ\n✔️ Mua hàng trực tiếp trên hệ thống",
           videoUrl: "https://www.youtube.com/embed/JLcL_u84C0I?si=cUOZ_sGhXuGRTWA-"
         },
         {
@@ -267,7 +267,7 @@ export default function LearningModules() {
             </div>
 
             {/* Horizontal scrollable row of vertical cards with click-and-drag */}
-            <DragScrollContainer className="flex overflow-x-auto gap-3 sm:gap-4 pb-4 scrollbar-none -mx-4 px-4">
+            <DragScrollContainer className="flex overflow-x-auto gap-3 sm:gap-4 pb-4 scrollbar-none -mx-4 px-4 whitespace-pre-line">
               {module.lessons.map((lesson) => (
                 <VideoCard
                   key={lesson.id}
@@ -341,7 +341,7 @@ export default function LearningModules() {
                     {activeVideo.title}
                   </h3>
                   {activeVideo.description && (
-                    <p className="text-slate-500 font-medium text-xs md:text-sm leading-relaxed mt-1">
+                    <p className="text-slate-500 font-medium text-xs md:text-sm leading-relaxed mt-1 whitespace-pre-line">
                       {activeVideo.description}
                     </p>
                   )}
