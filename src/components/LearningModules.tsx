@@ -6,9 +6,11 @@ import {
   Target,
   Heart,
   ChevronRight,
-  Play
+  Play,
+  X,
+  Sparkles
 } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import VideoCard from './VideoCard';
 
 interface Lesson {
@@ -17,6 +19,7 @@ interface Lesson {
   duration: string;
   thumbnail: string;
   description: string;
+  videoUrl?: string;
 }
 
 interface ModuleProps {
@@ -102,6 +105,24 @@ function DragScrollContainer({ children, className = "" }: DragScrollContainerPr
 }
 
 export default function LearningModules() {
+  const [activeVideo, setActiveVideo] = React.useState<{ title: string; description: string; videoUrl: string } | null>(null);
+  const [toastMessage, setToastMessage] = React.useState<string | null>(null);
+
+  const showToast = (message: string) => {
+    setToastMessage(message);
+    setTimeout(() => {
+      setToastMessage(null);
+    }, 2800);
+  };
+
+  const handlePlayVideo = (videoUrl?: string, title?: string, description?: string) => {
+    if (videoUrl) {
+      setActiveVideo({ title: title || '', description: description || '', videoUrl });
+    } else {
+      showToast("Bài học này đang được chuẩn bị và sẽ sớm ra mắt!");
+    }
+  };
+
   const modules: ModuleProps[] = [
     {
       id: "module-1",
@@ -116,26 +137,28 @@ export default function LearningModules() {
         {
           id: 1,
           title: "Hướng dẫn các bước thao tác nạp, chuyển, rút, mua hàng và các tính năng của trang thành viên",
-          duration: "18:20",
-          thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=450&fit=crop",
-          description: "Tìm hiểu toàn bộ thao tác cốt lõi để bắt đầu hành trình của bạn hiệu quả và tối ưu nhất."
+          duration: "", 
+          thumbnail: "",
+          description: "Tìm hiểu toàn bộ thao tác cốt lõi để bắt đầu hành trình của bạn hiệu quả và tối ưu nhất.",
+          videoUrl: "https://www.youtube.com/embed/uh0uL7GbPVU?si=mk7ghlUfGp-2wv5n"
         },
         {
-          id: 1,
+          id: 2,
+          title: "Hướng dẫn các bước thao tác nạp, chuyển, rút, mua hàng và các tính năng của trang thành viên",
+          duration: "",
+          thumbnail: "",
+          description: "Tìm hiểu toàn bộ thao tác cốt lõi để bắt đầu hành trình của bạn hiệu quả và tối ưu nhất.",
+          videoUrl: "https://www.youtube.com/embed/JLcL_u84C0I?si=cUOZ_sGhXuGRTWA-"
+        },
+        {
+          id: 3,
           title: "Hướng dẫn các bước thao tác nạp, chuyển, rút, mua hàng và các tính năng của trang thành viên",
           duration: "18:20",
           thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=450&fit=crop",
           description: "Tìm hiểu toàn bộ thao tác cốt lõi để bắt đầu hành trình của bạn hiệu quả và tối ưu nhất."
         },
         {
-          id: 1,
-          title: "Hướng dẫn các bước thao tác nạp, chuyển, rút, mua hàng và các tính năng của trang thành viên",
-          duration: "18:20",
-          thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=450&fit=crop",
-          description: "Tìm hiểu toàn bộ thao tác cốt lõi để bắt đầu hành trình của bạn hiệu quả và tối ưu nhất."
-        },
-        {
-          id: 1,
+          id: 4,
           title: "Hướng dẫn các bước thao tác nạp, chuyển, rút, mua hàng và các tính năng của trang thành viên",
           duration: "18:20",
           thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=450&fit=crop",
@@ -244,7 +267,7 @@ export default function LearningModules() {
             </div>
 
             {/* Horizontal scrollable row of vertical cards with click-and-drag */}
-            <DragScrollContainer className="flex overflow-x-auto gap-4 pb-4 scrollbar-none -mx-4 px-4">
+            <DragScrollContainer className="flex overflow-x-auto gap-3 sm:gap-4 pb-4 scrollbar-none -mx-4 px-4">
               {module.lessons.map((lesson) => (
                 <VideoCard
                   key={lesson.id}
@@ -254,12 +277,97 @@ export default function LearningModules() {
                   thumbnail={lesson.thumbnail}
                   description={lesson.description}
                   color={module.color}
+                  videoUrl={lesson.videoUrl}
+                  onPlay={(videoUrl, title) => handlePlayVideo(videoUrl, title, lesson.description)}
                 />
               ))}
             </DragScrollContainer>
           </div>
         ))}
       </div>
+
+      {/* ── Video Player Modal ── */}
+      <AnimatePresence>
+        {activeVideo && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4"
+              onClick={() => setActiveVideo(null)}
+            >
+              {/* Modal Container */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                transition={{ type: 'spring', damping: 25, stiffness: 250 }}
+                className="relative w-full max-w-4xl bg-white/95 backdrop-blur-xl border border-slate-200/50 rounded-3xl overflow-hidden shadow-[0_24px_50px_-12px_rgba(0,0,0,0.3)] flex flex-col"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Close Button */}
+                <button
+                  onClick={() => setActiveVideo(null)}
+                  className="absolute top-4 right-4 z-10 p-2 rounded-full bg-slate-900/10 hover:bg-slate-900/20 text-slate-700 hover:text-slate-950 transition-all duration-200 cursor-pointer border-none"
+                >
+                  <X size={20} />
+                </button>
+
+                {/* Aspect-Ratio 16:9 Video Container */}
+                <div className="relative aspect-video w-full bg-black shadow-inner">
+                  <iframe
+                    src={activeVideo.videoUrl.includes('?') ? `${activeVideo.videoUrl}&autoplay=1` : `${activeVideo.videoUrl}?autoplay=1`}
+                    title={activeVideo.title}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                    className="absolute inset-0 w-full h-full border-none"
+                  />
+                </div>
+
+                {/* Bento Grid Info Area */}
+                <div className="p-6 md:p-8 bg-gradient-to-b from-white to-slate-50/50 flex flex-col gap-3 text-left">
+                  <div className="flex items-center gap-2">
+                    <span className="px-2.5 py-1 text-[10px] font-bold text-blue-600 bg-blue-50 rounded-md border border-blue-100 uppercase tracking-wider">
+                      Đang phát
+                    </span>
+                    <span className="text-[10px] font-extrabold text-slate-400">
+                      Univision Global Learning Hub
+                    </span>
+                  </div>
+                  <h3 className="font-extrabold text-slate-800 text-base md:text-xl leading-snug">
+                    {activeVideo.title}
+                  </h3>
+                  {activeVideo.description && (
+                    <p className="text-slate-500 font-medium text-xs md:text-sm leading-relaxed mt-1">
+                      {activeVideo.description}
+                    </p>
+                  )}
+                </div>
+              </motion.div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* Floating Toast Notification */}
+      <AnimatePresence>
+        {toastMessage && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            className="fixed bottom-20 md:bottom-8 left-1/2 -translate-x-1/2 z-50 px-5 py-3 rounded-2xl bg-white/95 backdrop-blur-xl border border-slate-200/80 shadow-[0_10px_30px_rgba(0,0,0,0.06)] flex items-center gap-2.5 min-w-[280px]"
+          >
+            <div className="w-5 h-5 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-500 flex-shrink-0">
+              <Sparkles size={12} className="animate-pulse" />
+            </div>
+            <span className="text-xs font-black text-slate-800 text-left">{toastMessage}</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
