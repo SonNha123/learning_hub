@@ -152,10 +152,11 @@ export default function LearningModules() {
         },
         {
           id: 3,
-          title: "Hướng dẫn các bước thao tác nạp, chuyển, rút, mua hàng và các tính năng của trang thành viên",
-          duration: "18:20",
-          thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=450&fit=crop",
-          description: "Tìm hiểu toàn bộ thao tác cốt lõi để bắt đầu hành trình của bạn hiệu quả và tối ưu nhất."
+          title: "Hướng dẫn chi tiết các bước cài đặt và sử dụng Landing Page:",
+          duration: "",
+          thumbnail: "",
+          description: "✔️ Đăng nhập vào tại khoản\n✔️ Truy cập vào hệ thống Kinh Doanh Thông Minh\n✔️ Hướng dẫn chi tiết cách thiết lập landing page cá nhân hoá\n✔️ Hướng dẫn sử dụng",
+          videoUrl: "https://www.youtube.com/embed/RLyI67JV-Q4?si=5N2ayoQf4YoVg8MI"
         },
         {
           id: 4,
