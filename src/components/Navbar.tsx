@@ -186,33 +186,6 @@ export default function Navbar() {
 
           {/* User Profile & Actions (Right) */}
           <div className="flex items-center gap-1.5 flex-shrink-0">
-            {/* Search Button (Hidden on tablet to stay extra clean) */}
-            <button 
-              onClick={() => showToast('Nhập từ khóa để tìm bài học...')}
-              className="hidden lg:flex p-2 text-slate-500 hover:text-slate-800 transition-colors cursor-pointer rounded-xl hover:bg-slate-100"
-            >
-              <Search size={18} />
-            </button>
-
-            {/* Profile Group */}
-            <div 
-              onClick={() => setMobileOpen(true)}
-              className="flex items-center gap-2.5 cursor-pointer group p-1.5 rounded-2xl hover:bg-slate-100 transition-all duration-200 border border-transparent hover:border-slate-200/80"
-            >
-              <div className="w-8.5 h-8.5 rounded-full overflow-hidden border border-slate-200 group-hover:border-[#1877F2] transition-colors duration-300 shadow-md">
-                <img 
-                  src="https://upload.wikimedia.org/wikipedia/commons/9/94/2025_Cristiano_Ronaldo_%28cropped%29.jpg" 
-                  alt="Avatar"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="hidden sm:flex flex-col text-left leading-none">
-                <span className="text-slate-700 font-extrabold text-[12px] tracking-tight group-hover:text-slate-900 transition-colors">Cristiano Ronaldo</span>
-                <span className="text-slate-400 font-bold text-[9.5px] mt-1">Thành viên</span>
-              </div>
-              <ChevronDown size={13} className="text-slate-500 group-hover:text-slate-700 transition-colors hidden sm:block" />
-            </div>
-
             {/* Mobile hamburger toggle */}
             <button 
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -246,20 +219,7 @@ export default function Navbar() {
             >
               {/* Drawer Header */}
               <div className="flex items-center justify-between px-5 pt-5 pb-4 border-b border-slate-100">
-                <div className="flex items-center gap-2">
-                  <div className="w-8.5 h-8.5 rounded-full overflow-hidden border border-slate-200">
-                    <img 
-                      src="https://upload.wikimedia.org/wikipedia/commons/9/94/2025_Cristiano_Ronaldo_%28cropped%29.jpg" 
-                      alt="Avatar"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="flex flex-col text-left leading-none">
-                    <span className="text-slate-700 font-extrabold text-[13px] tracking-tight">Cristiano Ronaldo</span>
-                    <span className="text-slate-400 font-bold text-[10px] mt-1">Thành viên</span>
-                  </div>
-                </div>
-                <button onClick={() => setMobileOpen(false)} className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-500 hover:text-slate-800 transition-colors cursor-pointer">
+                <button onClick={() => setMobileOpen(false)} className="ml-auto p-1.5 rounded-lg flex hover:bg-slate-100 text-slate-500 hover:text-slate-800 transition-colors cursor-pointer">
                   <X size={20} />
                 </button>
               </div>
