@@ -54,15 +54,15 @@ export default function Footer() {
              <ul className="space-y-4 text-sm text-slate-600 font-semibold">
                <li className="flex flex-col">
                  <span className="text-slate-500 text-xs font-semibold">Email:</span>
-                 <span className="text-slate-800 font-bold">contact@univision.global</span>
+                 <span className="text-slate-800 font-bold">univisionglobal2026@gmail.com</span>
                </li>
                <li className="flex flex-col">
                  <span className="text-slate-500 text-xs font-semibold">Hotline:</span>
-                 <span className="text-slate-800 font-bold">(84) 123 456 789</span>
+                 <span className="text-slate-800 font-bold">0853319486</span>
                </li>
                <li className="flex flex-col">
                  <span className="text-slate-500 text-xs font-semibold">Địa chỉ:</span>
-                 <span className="text-slate-800 font-bold">Quận 1, TP. Hồ Chí Minh, Việt Nam</span>
+                 <span className="text-slate-800 font-bold">247 Nguyễn Văn Lượng, Phường Gò Vấp, TP.HCM</span>
                </li>
              </ul>
           </div>
